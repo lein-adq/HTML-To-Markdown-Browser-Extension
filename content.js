@@ -82,6 +82,7 @@
         "PRE",
         "UL",
         "OL",
+        "TABLE",
       ];
 
       if (!semanticTags.includes(element.tagName)) {
@@ -170,6 +171,9 @@
         case "OL":
           content = this.processList(element, "1.");
           break;
+        case "TABLE":
+          content = this.processTable(element);
+          break;
       }
 
       if (content.trim()) {
@@ -220,6 +224,29 @@
           return `${prefix} ${this.processInlineElements(item)}`;
         })
         .join("\n");
+    }
+
+    processTable(element) {
+      const rows = Array.from(element.querySelectorAll('tr'));
+      if (rows.length === 0) return '';
+
+      const tableRows = rows.map(row => {
+        const cells = Array.from(row.querySelectorAll('td, th'));
+        return '| ' + cells.map(cell => this.getTextContent(cell).replace(/\|/g, '\\|')).join(' | ') + ' |';
+      });
+
+      // Add header separator if first row contains th elements
+      const firstRow = rows[0];
+      const hasHeaders = firstRow.querySelector('th');
+      
+      if (hasHeaders && tableRows.length > 0) {
+        const headerSeparator = '| ' + Array.from(firstRow.querySelectorAll('th, td'))
+          .map(() => '---')
+          .join(' | ') + ' |';
+        tableRows.splice(1, 0, headerSeparator);
+      }
+
+      return tableRows.join('\n');
     }
 
     getTextContent(element) {
