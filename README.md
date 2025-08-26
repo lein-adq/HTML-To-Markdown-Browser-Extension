@@ -13,13 +13,26 @@ A powerful Chrome browser extension that converts webpage content to clean Markd
 
 ## 📦 Installation Instructions
 
-1. **Create a new folder** called `markdown-extension`
-2. **Save each file** above into the folder with its respective name
-3. **Create simple icons** (16x16, 48x48, 128x128 px) or use placeholder images
-4. **Open Chrome** and go to `chrome://extensions/`
-5. **Enable "Developer mode"** (toggle in top right)
-6. **Click "Load unpacked"** and select your extension folder
-7. **Test the extension** on any webpage!
+### Option 1: Clone from GitHub (Recommended)
+
+1. **Clone this repository**:
+2. **Open Chrome** and go to `chrome://extensions/`
+3. **Enable "Developer mode"** (toggle in top right)
+4. **Click "Load unpacked"** and select the cloned folder
+5. **Test the extension** on any webpage!
+
+### Option 2: Download ZIP
+
+1. **Download** the repository as a ZIP file from GitHub
+2. **Extract** the ZIP file to your desired location
+3. **Open Chrome** and go to `chrome://extensions/`
+4. **Enable "Developer mode"** (toggle in top right)
+5. **Click "Load unpacked"** and select the extracted folder
+6. **Test the extension** on any webpage!
+
+> [!NOTE]
+> 
+> The extension includes placeholder icons. You can replace `icon16.png`, `icon48.png`, and `icon128.png` with your own custom icons if desired.
 
 ## 🎯 How It Works
 
