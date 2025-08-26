@@ -83,7 +83,48 @@
         "UL",
         "OL",
       ];
-      return semanticTags.includes(element.tagName);
+
+      if (!semanticTags.includes(element.tagName)) {
+        return false;
+      }
+
+      // Skip lists that are likely navigation or sidebar content
+      if (element.tagName === "UL" || element.tagName === "OL") {
+        return !this.isNavigationList(element);
+      }
+
+      return true;
+    }
+
+    isNavigationList(element) {
+      // Check if the list or its ancestors have navigation-related classes/roles
+      const navIndicators = [
+        'nav', 'navigation', 'menu', 'sidebar', 'header', 'footer',
+        'breadcrumb', 'pagination', 'social', 'widget', 'aside'
+      ];
+
+      let current = element;
+      while (current && current !== document.body) {
+        // Check tag name
+        if (current.tagName === 'NAV' || current.tagName === 'HEADER' || current.tagName === 'FOOTER' || current.tagName === 'ASIDE') {
+          return true;
+        }
+
+        // Check classes and IDs
+        const className = current.className?.toLowerCase() || '';
+        const id = current.id?.toLowerCase() || '';
+        const role = current.getAttribute('role')?.toLowerCase() || '';
+
+        if (navIndicators.some(indicator => 
+          className.includes(indicator) || id.includes(indicator) || role.includes(indicator)
+        )) {
+          return true;
+        }
+
+        current = current.parentElement;
+      }
+
+      return false;
     }
 
     convertToMarkdown(element) {
